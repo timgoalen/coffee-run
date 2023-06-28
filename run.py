@@ -1,8 +1,10 @@
-# from CI 'love sanwiches' tutorial www.??
+
 import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
+import os
 
+# from CI 'love sanwiches' tutorial www.??
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -22,7 +24,13 @@ pastries_data = pastries_menu.get_all_values()
 
 coffee_price = coffee_menu.col_values(1)
 
-# print(coffee_price)
+
+def clear_screen():
+    """
+    Clears the terminal
+    """
+    # https://appdividend.com/2022/06/03/how-to-clear-console-in-python/?utm_content=cmp-true
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def display_coffee_menu():
@@ -30,23 +38,47 @@ def display_coffee_menu():
     Displays coffee menu from google sheets
     """
     # print(coffee_price)
+    clear_screen()
     print(tabulate(coffee_data, headers="firstrow", tablefmt="grid"))
     coffee_choice = input("\nChoose an option #: ")
     if coffee_choice == "1":
-        print(f"\nYou chose {coffee_menu.cell(2, 1).value}\n")
+        print(f"\nThanks, you chose {coffee_menu.cell(2, 1).value}\n")
     elif coffee_choice == "2":
-        print(f"\nYou chose {coffee_menu.cell(3, 1).value}\n")
+        print(f"\nThanks, you chose {coffee_menu.cell(3, 1).value}\n")
     elif coffee_choice == "3":
-        print(f"\nYou chose {coffee_menu.cell(4, 1).value}\n")
+        print(f"\nThanks, you chose {coffee_menu.cell(4, 1).value}\n")
     elif coffee_choice == "4":
-        print(f"\nYou chose {coffee_menu.cell(5, 1).value}\n")
+        print(f"\nThanks, you chose {coffee_menu.cell(5, 1).value}\n")
     elif coffee_choice == "5":
-        print(f"\nYou choose {coffee_menu.cell(6, 1).value}\n")
+        print(f"\nThanks, you choose {coffee_menu.cell(6, 1).value}\n")
     elif coffee_choice == "6":
-        print(f"\nYou chose {coffee_menu.cell(7, 1).value}\n")
+        print(f"\nThanks, you chose {coffee_menu.cell(7, 1).value}\n")
+    choose_quantity()
 
 
-# print(tabulate(coffee_data, headers="firstrow", tablefmt="grid"))
+def choose_quantity():
+    """
+    """
+    quantity = input("How many of these would you like?: ")
+    if quantity == "1":
+        print("\nYou chose 1\n")
+        display_pastries_menu()
+
+
+def display_pastries_menu():
+    """
+    """
+    print("Would you like any pastries to go with that?\n")
+    print(tabulate(pastries_data, headers="firstrow", tablefmt="grid"))
+    pastry_choice = input("\nChoose an option #: ")
+    if pastry_choice == "1":
+        print(f"\nThanks, you chose {pastries_menu.cell(2, 1).value}\n")
+    elif pastry_choice == "2":
+        print(f"\nThanks, you chose {pastries_menu.cell(3, 1).value}\n")
+    elif pastry_choice == "3":
+        print(f"\nThanks, you chose {pastries_menu.cell(4, 1).value}\n")
+    choose_quantity()
+
 
 print("WELCOME TO COFFEE RUN\n\n")
 
