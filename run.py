@@ -3,6 +3,9 @@ import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
 import os
+from termcolor import colored, cprint
+import pyfiglet
+
 
 # from CI 'love sanwiches' tutorial www.??
 SCOPE = [
@@ -80,7 +83,20 @@ def display_pastries_menu():
     choose_quantity()
 
 
+# text = colored("Hello, World!", "red", attrs=["reverse", "blink"])
+# print(text)
+# cprint("Hello, World!", "green", "on_red")
+
+# print_red_on_cyan = lambda x: cprint(x, "red", "on_cyan")
+# print_red_on_cyan("Hello, World!")
+# print_red_on_cyan("Hello, Universe!")
+
+
 print("WELCOME TO COFFEE RUN\n\n")
+print("Do you wanna order some coffee?\n")
+# print("WELCOME TO..\n")
+# print(pyfiglet.figlet_format("coffee run\n", font="speed",justify="center"))
+
 
 print("Why wait in line!?\n")
 print("Let Coffee Run take your order,\n")
@@ -96,7 +112,10 @@ print("and you just come collect when it's ready.\n\n")
 # print(options)
 
 print("Do you wanna order some coffee?\n")
-print("[Y] - Hell yes!\n[N] - Nah, don't know how I got here!\n")
+print("[Y] - Hell yes!\n")
+print("[N] - Nah, don't know how I got here!\n")
+# print(colored("[Y] - Hell yes!\n", "green"))
+# print(colored("[N] - Nah, don't know how I got here!\n", "red"))
 
 # make this into main()
 
