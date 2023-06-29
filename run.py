@@ -20,17 +20,20 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('coffee-run')
 
 coffee_menu = SHEET.worksheet('coffee_menu')
-pastries_menu = SHEET.worksheet('pastries_menu')
+# pastries_menu = SHEET.worksheet('pastries_menu')
 
 coffee_data = coffee_menu.get_all_values()
-pastries_data = pastries_menu.get_all_values()
+# pastries_data = pastries_menu.get_all_values()
 
-coffee_price = coffee_menu.col_values(1)
+# coffee_price = coffee_menu.col_values(1)
+
+orders_spreadsheet = SHEET.worksheet('orders')
+orders_test = orders_spreadsheet.get_all_values()
 
 # Order variables
 
 coffee_list = []
-customer_name = ""
+# customer_name = ""
 
 def clear_screen():
     """
@@ -80,7 +83,7 @@ def choose_quantity():
     """
     """
     quantity = int(input("How many of these would you like?: "))
-    print(f"\nYou chose {quantity}\n")
+    print(f"\nYou'd like {quantity} of these\n")
     coffee_list.append(quantity)
 
     add_more_coffees()
@@ -89,7 +92,7 @@ def choose_quantity():
 def add_more_coffees():
     """
     """
-    more = input("Would you like to add more to the order? [y/n]: " )
+    more = input("Would you like to add more to the order? [y/n]: ")
     if more == "y":
         choose_coffee()
     else:
@@ -104,18 +107,30 @@ def add_more_coffees():
 def add_customer_name():
     """
     """
+    print(coffee_list)
     customer_name = input("\nWhat name should we write on your order?: ")
-    print(customer_name)
+    if customer_name:
+        send_order(coffee_list)
 
-print("WELCOME TO COFFEE RUN\n\n")
 
-print("Why wait in line!?\n")
-print("Let Coffee Run take your order,\n")
-print("and you just come collect when it's ready.\n\n")
+def send_order(order):
+    """
+    """
+    # orders_spreadsheet = SHEET.worksheet('orders')
+    orders_spreadsheet.append_row(order)
 
-print("Do you wanna order some coffee?\n")
-print("[Y] - Hell yes!\n")
-print("[N] - Nah, don't know how I got here!\n")
+
+# start screen
+
+# print("WELCOME TO COFFEE RUN\n\n")
+
+# print("Why wait in line!?\n")
+# print("Let Coffee Run take your order,\n")
+# print("and you just come collect when it's ready.\n\n")
+
+# print("Do you wanna order some coffee?\n")
+# print("[Y] - Hell yes!\n")
+# print("[N] - Nah, don't know how I got here!\n")
 
 
 def welcome():
