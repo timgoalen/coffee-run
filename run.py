@@ -6,6 +6,7 @@ import os
 from termcolor import colored, cprint
 import pyfiglet
 
+# check deployment video for heroku imput bug
 
 # from CI 'love sanwiches' tutorial www.??
 SCOPE = [
