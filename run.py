@@ -28,7 +28,7 @@ coffee_data = coffee_menu.get_all_values()
 # coffee_price = coffee_menu.col_values(1)
 
 orders_spreadsheet = SHEET.worksheet('orders')
-orders_test = orders_spreadsheet.get_all_values()
+
 
 # Order variables
 
@@ -110,6 +110,7 @@ def add_customer_name():
     print(coffee_list)
     customer_name = input("\nWhat name should we write on your order?: ")
     if customer_name:
+        coffee_list.insert(0, customer_name)
         send_order(coffee_list)
 
 
