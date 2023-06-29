@@ -30,7 +30,6 @@ coffee_price = coffee_menu.col_values(1)
 # Order variables
 
 coffee_list = []
-customer_name = ""
 
 def clear_screen():
     """
@@ -74,37 +73,31 @@ def choose_coffee():
         coffee_list.append(coffee_menu.cell(7, 1).value)
 
     choose_quantity()
+    # print(coffee_list)
 
 
 def choose_quantity():
     """
     """
-    quantity = int(input("How many of these would you like?: "))
-    print(f"\nYou chose {quantity}\n")
-    coffee_list.append(quantity)
+    quantity = input("How many of these would you like?: ")
+    if quantity == "1":
+        print("\nYou chose 1\n")
+        # display_pastries_menu()
 
-    add_more_coffees()
 
-
-def add_more_coffees():
+def display_pastries_menu():
     """
     """
-    more = input("Would you like to add more to the order? [y/n]: " )
-    if more == "y":
-        choose_coffee()
-    else:
-        # print(tabulate(coffee_list))
-        # print()
-        # print(f"{coffee_list[0]} x {coffee_list[1]}")
-        # print()
-        # input("This is your order. Press 'Y' to send it to us: ")
-        add_customer_name()
-
-
-def add_customer_name():
-    """
-    """
-    input("What name should we write on your order?: ")
+    print("Would you like any pastries to go with that?\n")
+    print(tabulate(pastries_data, headers="firstrow", tablefmt="grid"))
+    pastry_choice = input("\nChoose an option #: ")
+    if pastry_choice == "1":
+        print(f"\nThanks, you chose {pastries_menu.cell(2, 1).value}\n")
+    elif pastry_choice == "2":
+        print(f"\nThanks, you chose {pastries_menu.cell(3, 1).value}\n")
+    elif pastry_choice == "3":
+        print(f"\nThanks, you chose {pastries_menu.cell(4, 1).value}\n")
+    choose_quantity()
 
 
 print("WELCOME TO COFFEE RUN\n\n")
