@@ -28,12 +28,13 @@ coffee_data = coffee_menu.get_all_values()
 # coffee_price = coffee_menu.col_values(1)
 
 orders_spreadsheet = SHEET.worksheet('orders')
+pending_orders = orders_spreadsheet.get_all_values()
 
 
 # Order variables
 
-coffee_list = []
-# customer_name = ""
+order_list = []
+customer_name = ""
 
 def clear_screen():
     """
@@ -59,22 +60,22 @@ def choose_coffee():
 
     if coffee_choice == "1":
         print(f"\nThanks, you chose {coffee_menu.cell(2, 1).value}\n")
-        coffee_list.append(coffee_menu.cell(2, 1).value)
+        order_list.append(coffee_menu.cell(2, 1).value)
     elif coffee_choice == "2":
         print(f"\nThanks, you chose {coffee_menu.cell(3, 1).value}\n")
-        coffee_list.append(coffee_menu.cell(3, 1).value)
+        order_list.append(coffee_menu.cell(3, 1).value)
     elif coffee_choice == "3":
         print(f"\nThanks, you chose {coffee_menu.cell(4, 1).value}\n")
-        coffee_list.append(coffee_menu.cell(4, 1).value)
+        order_list.append(coffee_menu.cell(4, 1).value)
     elif coffee_choice == "4":
         print(f"\nThanks, you chose {coffee_menu.cell(5, 1).value}\n")
-        coffee_list.append(coffee_menu.cell(5, 1).value)
+        order_list.append(coffee_menu.cell(5, 1).value)
     elif coffee_choice == "5":
         print(f"\nThanks, you choose {coffee_menu.cell(6, 1).value}\n")
-        coffee_list.append(coffee_menu.cell(6, 1).value)
+        order_list.append(coffee_menu.cell(6, 1).value)
     elif coffee_choice == "6":
         print(f"\nThanks, you chose {coffee_menu.cell(7, 1).value}\n")
-        coffee_list.append(coffee_menu.cell(7, 1).value)
+        order_list.append(coffee_menu.cell(7, 1).value)
 
     choose_quantity()
 
@@ -84,7 +85,7 @@ def choose_quantity():
     """
     quantity = int(input("How many of these would you like?: "))
     print(f"\nYou'd like {quantity} of these\n")
-    coffee_list.append(quantity)
+    order_list.append(quantity)
 
     add_more_coffees()
 
@@ -96,9 +97,9 @@ def add_more_coffees():
     if more == "y":
         choose_coffee()
     else:
-        # print(tabulate(coffee_list))
+        # print(tabulate(order_list))
         # print()
-        # print(f"{coffee_list[0]} x {coffee_list[1]}")
+        # print(f"{order_list[0]} x {order_list[1]}")
         # print()
         # input("This is your order. Press 'Y' to send it to us: ")
         add_customer_name()
@@ -107,19 +108,57 @@ def add_more_coffees():
 def add_customer_name():
     """
     """
-    print(coffee_list)
     customer_name = input("\nWhat name should we write on your order?: ")
     if customer_name:
-        coffee_list.insert(0, customer_name)
-        send_order(coffee_list)
+        capitalized_name = customer_name.capitalize()
+        order_list.insert(0, capitalized_name)
+
+        # send_name(customer_name)
+        send_order(order_list)
+
+
+# def send_name(name):
+#     """
+#     """
+#     orders_spreadsheet.append_row(name)
 
 
 def send_order(order):
     """
     """
-    # orders_spreadsheet = SHEET.worksheet('orders')
     orders_spreadsheet.append_row(order)
+    # display_pending_order()
 
+
+def display_pending_order():
+    last_order_row = len(pending_orders)
+    
+    # print(tabulate(orders_spreadsheet.row_values(last_order), tablefmt="grid"))
+
+    # order_name = orders_spreadsheet.row_values(last_order_row-1)
+    last_order_items = orders_spreadsheet.row_values(last_order_row)
+    # name = order_name
+
+    print(f"Thanks {last_order_items[0]}, your order is:")
+    print(last_order_items[1::])
+    # print(tabulate(name))
+
+    # pairs = 2
+
+    # def split_pending_order_row_into_pairs(lst, new_lists_size):
+    #     return [lst[i:i+new_lists_size] for i in range(0, len(lst), new_lists_size)]
+
+    # receipt_table = 
+    
+    # split_pending_order_row_into_pairs(order_list, 2)
+
+
+    # receipt = orders_spreadsheet.row_values(last_order)
+    # table = [receipt]
+    # print(table)
+    # print(tabulate(table))
+
+    
 
 # start screen
 
@@ -150,4 +189,5 @@ def main():
 
 
 # main()
-display_coffee_menu()
+# display_coffee_menu()
+display_pending_order()
