@@ -104,8 +104,8 @@ def add_more_coffees():
 def add_customer_name():
     """
     """
-    input("What name should we write on your order?: ")
-
+    customer_name = input("\nWhat name should we write on your order?: ")
+    print(customer_name)
 
 print("WELCOME TO COFFEE RUN\n\n")
 
