@@ -7,6 +7,7 @@ from termcolor import colored, cprint
 import pyfiglet
 from datetime import datetime
 import pytz
+import time
 
 
 # check deployment video for heroku imput bug
@@ -30,8 +31,6 @@ coffee_data = coffee_menu.get_all_values()
 # coffee_price = coffee_menu.col_values(1)
 
 orders_spreadsheet = SHEET.worksheet('orders')
-pending_orders = orders_spreadsheet.get_all_values()
-
 
 # Order variables
 
@@ -117,23 +116,30 @@ def send_order(order):
     """
     """
     orders_spreadsheet.append_row(order)
-    # display_pending_order()
+    clear_screen()
+    print("Sending your order to us...")
+    # time.sleep(6)
+    display_pending_order()
 
 
 def display_pending_order():
     """
     """
-    last_order_row = len(pending_orders)
-    last_order_items = orders_spreadsheet.row_values(last_order_row)
+    clear_screen()
 
+    pending_orders = orders_spreadsheet.get_all_values()
+    last_order_row = len(pending_orders)
+    last_order_items = orders_spreadsheet.row_values(last_order_row)    
     print(f"Thanks {last_order_items[0]}, your order is:\n")
+
     coffees = last_order_items[1:-1:2]
     quantities = last_order_items[2::2]
-
     receipt = list(zip(coffees, quantities))
     print(tabulate(receipt, headers=["Coffee", "Quantity"], tablefmt="grid"))
+
     # calculate_total_cost(last_order_items)
     calculate_pickup_time(quantities)
+
     display_current_time()
 
 
@@ -161,23 +167,27 @@ def calculate_pickup_time(quantities):
     sum = 0
     for num in quantities_int:
         sum = sum + num
-    print(f"\nPlease give us {sum} minutes before picking up you order.")
-
-
-# start screen
-
-# print("WELCOME TO COFFEE RUN\n\n")
-
-# print("Why wait in line!?\n")
-# print("Let Coffee Run take your order,\n")
-# print("and you just come collect when it's ready.\n\n")
-
-# print("Do you wanna order some coffee?\n")
-# print("[Y] - Hell yes!\n")
-# print("[N] - Nah, don't know how I got here!\n")
+    if sum > 1:
+        print(f"\nPlease give us {sum} minutes before picking up you order.")
+    elif sum == 1:
+        print(f"\nPlease give us {sum} minute before picking up you order.")
 
 
 def welcome():
+    """
+    """
+    print("WELCOME TO COFFEE RUN\n\n")
+
+    print("Why wait in line!?\n")
+    print("Let Coffee Run take your order,\n")
+    print("and you just come collect when it's ready.\n\n")
+
+    print("Do you wanna order some coffee?\n")
+    print("[Y] - Hell yes!\n")
+    print("[N] - Nah, don't know how I got here!\n")
+
+
+def enter():
     """
     """
     entrance = input("...press Y or N, then Enter: ")
@@ -190,6 +200,7 @@ def welcome():
 
 def main():
     welcome()
+    enter()
 
 
 main()
