@@ -5,6 +5,9 @@ from tabulate import tabulate
 import os
 from termcolor import colored, cprint
 import pyfiglet
+from datetime import datetime
+import pytz
+
 
 # check deployment video for heroku imput bug
 
@@ -130,7 +133,7 @@ def display_pending_order():
     last_order_row = len(pending_orders)
     last_order_items = orders_spreadsheet.row_values(last_order_row)
 
-    print(f"Thanks {last_order_items[0]}, your order is:")
+    print(f"Thanks {last_order_items[0]}, your order is:\n")
     coffees = last_order_items[1:-1:2]
     quantities = last_order_items[2::2]
 
@@ -138,6 +141,17 @@ def display_pending_order():
     print(tabulate(receipt, headers=["Coffee", "Quantity"], tablefmt="grid"))
     # calculate_total_cost(last_order_items)
     calculate_pickup_time(quantities)
+    display_current_time()
+
+
+def display_current_time():
+    """
+    """
+    london_timezone = pytz.timezone('Europe/London')
+    london_datetime = datetime.now(london_timezone)
+    time_now = london_datetime.strftime("%H:%M")
+    print(f"\nYour order was placed at {time_now}")
+
 
 def calculate_total_cost(last_order_items):
     """
@@ -189,3 +203,4 @@ def main():
 # display_coffee_menu()
 display_pending_order()
 # print(coffee_data)
+# get_current_time()
