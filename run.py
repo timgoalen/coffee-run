@@ -24,10 +24,8 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('coffee-run')
 
 coffee_menu = SHEET.worksheet('coffee_menu')
-# pastries_menu = SHEET.worksheet('pastries_menu')
 
 coffee_data = coffee_menu.get_all_values()
-# pastries_data = pastries_menu.get_all_values()
 
 # coffee_price = coffee_menu.col_values(1)
 
@@ -38,7 +36,7 @@ pending_orders = orders_spreadsheet.get_all_values()
 # Order variables
 
 order_list = []
-# customer_name = ""
+
 
 def clear_screen():
     """
@@ -101,11 +99,6 @@ def add_more_coffees():
     if more == "y":
         choose_coffee()
     else:
-        # print(tabulate(order_list))
-        # print()
-        # print(f"{order_list[0]} x {order_list[1]}")
-        # print()
-        # input("This is your order. Press 'Y' to send it to us: ")
         add_customer_name()
 
 
@@ -199,8 +192,8 @@ def main():
     welcome()
 
 
-# main()
+main()
 # display_coffee_menu()
-display_pending_order()
+# display_pending_order()
 # print(coffee_data)
 # get_current_time()
