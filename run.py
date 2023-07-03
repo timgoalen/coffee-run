@@ -35,6 +35,8 @@ orders_spreadsheet = SHEET.worksheet('orders')
 # Order variables
 
 order_list = []
+# unit_price = []
+cost_list = []
 
 
 def clear_screen():
@@ -62,21 +64,27 @@ def choose_coffee():
     if coffee_choice == "1":
         print(f"\nThanks, you chose {coffee_menu.cell(2, 1).value}\n")
         order_list.append(coffee_menu.cell(2, 1).value)
+        cost_list.append(coffee_menu.cell(2, 2).value)
     elif coffee_choice == "2":
         print(f"\nThanks, you chose {coffee_menu.cell(3, 1).value}\n")
         order_list.append(coffee_menu.cell(3, 1).value)
+        cost_list.append(coffee_menu.cell(3, 2).value)
     elif coffee_choice == "3":
         print(f"\nThanks, you chose {coffee_menu.cell(4, 1).value}\n")
         order_list.append(coffee_menu.cell(4, 1).value)
+        cost_list.append(coffee_menu.cell(4, 2).value)
     elif coffee_choice == "4":
         print(f"\nThanks, you chose {coffee_menu.cell(5, 1).value}\n")
         order_list.append(coffee_menu.cell(5, 1).value)
+        cost_list.append(coffee_menu.cell(5, 2).value)
     elif coffee_choice == "5":
         print(f"\nThanks, you choose {coffee_menu.cell(6, 1).value}\n")
         order_list.append(coffee_menu.cell(6, 1).value)
+        cost_list.append(coffee_menu.cell(6, 2).value)
     elif coffee_choice == "6":
         print(f"\nThanks, you chose {coffee_menu.cell(7, 1).value}\n")
         order_list.append(coffee_menu.cell(7, 1).value)
+        cost_list.append(coffee_menu.cell(7, 2).value)
 
     choose_quantity()
 
@@ -87,9 +95,10 @@ def choose_quantity():
     quantity = int(input("How many of these would you like?: "))
     print(f"\nYou'd like {quantity} of these\n")
     order_list.append(quantity)
+    cost_list.append(quantity)
 
     add_more_coffees()
-
+    
 
 def add_more_coffees():
     """
@@ -137,26 +146,11 @@ def display_pending_order():
     receipt = list(zip(coffees, quantities))
     print(tabulate(receipt, headers=["Coffee", "Quantity"], tablefmt="grid"))
 
-    # calculate_total_cost(last_order_items)
     calculate_pickup_time(quantities)
-
+    calculate_total_cost()
     display_current_time()
-
-
-def display_current_time():
-    """
-    """
-    london_timezone = pytz.timezone('Europe/London')
-    london_datetime = datetime.now(london_timezone)
-    time_now = london_datetime.strftime("%H:%M")
-    print(f"\nYour order was placed at {time_now}")
-
-
-def calculate_total_cost(last_order_items):
-    """
-    """
     
-    
+
 def calculate_pickup_time(quantities):
     """
     """
@@ -168,9 +162,38 @@ def calculate_pickup_time(quantities):
     for num in quantities_int:
         sum = sum + num
     if sum > 1:
-        print(f"\nPlease give us {sum} minutes before picking up you order.")
+        print(f"\nPlease give us {sum} minutes before picking up you order")
     elif sum == 1:
-        print(f"\nPlease give us {sum} minute before picking up you order.")
+        print(f"\nPlease give us {sum} minute before picking up you order")
+
+
+def calculate_total_cost():
+    """
+    """
+    unit_price_unformatted = cost_list[::2]
+    # Remove the '£' from the price, and convert to float
+    unit_price_list = [float(price[1:]) for price in unit_price_unformatted]
+
+    quantities = cost_list[1::2]
+    # Convert the values in the list into integers
+    quantities = [int(quantity) for quantity in quantities]
+
+    total = 0
+    for price, quantity in zip(unit_price_list, quantities):
+        subtotal = price * quantity
+        total += subtotal
+    total_rounded = round(total, 2)    
+    
+    print(f"\nThe total cost will be £{total_rounded}0")
+
+
+def display_current_time():
+    """
+    """
+    london_timezone = pytz.timezone('Europe/London')
+    london_datetime = datetime.now(london_timezone)
+    time_now = london_datetime.strftime("%H:%M")
+    print(f"\nYour order was placed at {time_now}\n")
 
 
 def welcome():
@@ -203,8 +226,8 @@ def main():
     enter()
 
 
-main()
-# display_coffee_menu()
+# main()
+display_coffee_menu()
 # display_pending_order()
 # print(coffee_data)
 # get_current_time()
