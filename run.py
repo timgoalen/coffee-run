@@ -35,7 +35,7 @@ pending_orders = orders_spreadsheet.get_all_values()
 # Order variables
 
 order_list = []
-customer_name = ""
+# customer_name = ""
 
 def clear_screen():
     """
@@ -114,14 +114,7 @@ def add_customer_name():
         capitalized_name = customer_name.capitalize()
         order_list.insert(0, capitalized_name)
 
-        # send_name(customer_name)
         send_order(order_list)
-
-
-# def send_name(name):
-#     """
-#     """
-#     orders_spreadsheet.append_row(name)
 
 
 def send_order(order):
@@ -143,7 +136,26 @@ def display_pending_order():
 
     receipt = list(zip(coffees, quantities))
     print(tabulate(receipt, headers=["Coffee", "Quantity"], tablefmt="grid"))
+    # calculate_total_cost(last_order_items)
+    calculate_pickup_time(quantities)
+
+def calculate_total_cost(last_order_items):
+    """
+    """
     
+    
+def calculate_pickup_time(quantities):
+    """
+    """
+    # convert 'quantities' list of strings to list of integers, using map()
+    # https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
+    quantities_int = list(map(int, quantities))
+
+    sum = 0
+    for num in quantities_int:
+        sum = sum + num
+    print(f"\nPlease give us {sum} minutes before picking up you order.")
+
 
 # start screen
 
@@ -176,3 +188,4 @@ def main():
 # main()
 # display_coffee_menu()
 display_pending_order()
+# print(coffee_data)
