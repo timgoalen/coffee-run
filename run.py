@@ -132,33 +132,17 @@ def send_order(order):
 
 
 def display_pending_order():
+    """
+    """
     last_order_row = len(pending_orders)
-    
-    # print(tabulate(orders_spreadsheet.row_values(last_order), tablefmt="grid"))
-
-    # order_name = orders_spreadsheet.row_values(last_order_row-1)
     last_order_items = orders_spreadsheet.row_values(last_order_row)
-    # name = order_name
 
     print(f"Thanks {last_order_items[0]}, your order is:")
-    print(last_order_items[1::])
-    # print(tabulate(name))
+    coffees = last_order_items[1:-1:2]
+    quantities = last_order_items[2::2]
 
-    # pairs = 2
-
-    # def split_pending_order_row_into_pairs(lst, new_lists_size):
-    #     return [lst[i:i+new_lists_size] for i in range(0, len(lst), new_lists_size)]
-
-    # receipt_table = 
-    
-    # split_pending_order_row_into_pairs(order_list, 2)
-
-
-    # receipt = orders_spreadsheet.row_values(last_order)
-    # table = [receipt]
-    # print(table)
-    # print(tabulate(table))
-
+    receipt = list(zip(coffees, quantities))
+    print(tabulate(receipt, headers=["Coffee", "Quantity"], tablefmt="grid"))
     
 
 # start screen
