@@ -36,7 +36,6 @@ def clear_screen():
     """
     Clears the terminal
     """
-    # https://appdividend.com/2022/06/03/how-to-clear-console-in-python/?utm_content=cmp-true
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
@@ -87,7 +86,7 @@ def choose_coffee():
     print("Thanks, you chose "f"{colored(choice,'light_green')}\n")
     choose_quantity()
 
-    
+
 def choose_quantity():
     """
     """
@@ -128,7 +127,7 @@ def add_more_coffees():
 
 def add_customer_name():
     """
-    """    
+    """  
     clear_screen()
 
     customer_name = ""
@@ -143,7 +142,7 @@ def add_customer_name():
             capitalized_name = customer_name.capitalize()
             ORDER_LIST.insert(0, capitalized_name)
             break
-      
+
     send_order(ORDER_LIST)
 
 
@@ -153,7 +152,6 @@ def send_order(order):
     ORDERS_SPREADSHEET.append_row(order)
     clear_screen()
     print("Sending your order to us...")
-    # time.sleep(6)
     display_pending_order()
 
 
@@ -175,7 +173,7 @@ def display_pending_order():
     calculate_total_cost()
     calculate_pickup_time(quantities)
     display_current_time()
-    
+
 
 def calculate_pickup_time(quantities):
     """
@@ -209,7 +207,7 @@ def calculate_total_cost():
         subtotal = price * quantity
         total += subtotal
     total_rounded = round(total, 2)   
-  
+
     print(f"\nThe total cost will be £{total_rounded}0")
 
 
@@ -221,28 +219,33 @@ def display_current_time():
     time_now = london_datetime.strftime("%H:%M")
     print(f"\nYour order was placed at {time_now}\n")
 
+    goodbye()
 
-def welcome():
+
+def goodbye():
     """
     """
-    print("WELCOME TO..\n")
+    time.sleep(2)
+    print("\nThanks for using")
+    title()
+
+
+def title():
+    """
+    """
     f = Figlet(font="small")
     title1 = "COMMAND"
     title2 = "LINE"
     title3 = "COFFEE.\n\n"
-    # print(colored(f.renderText(title1), "green"))
-    # print(colored(f.renderText(title1), "blue"))
-    # print(colored(f.renderText(title1), "magenta"))
-    # print(colored(f.renderText(title1), "cyan"))
-    # print(colored(f.renderText(title1), "light_red"))
-    # print(colored(f.renderText(title1), "light_green"))
-    # print(colored(f.renderText(title1), "light_magenta"))
+
     print(colored(f.renderText(title1), "light_cyan"))
     print(colored(f.renderText(title2), "light_blue"))
     print(colored(f.renderText(title3), "light_green"))
-    # print(f.renderText(title2))
-    # print(f.renderText(title3))
 
+
+def welcome():
+    """
+    """
     time.sleep(1)
     print("Why wait in line!?\n")
     print("Let COMMAND-LINE COFFEE take your order,\n")
@@ -260,23 +263,29 @@ def enter():
     while True:
         customer_input = input("...press Y or N, then Enter: ").strip().lower()
         if customer_input == "y":
-            display_coffee_menu()
             break
         elif customer_input == "n":
+            clear_screen()
+            title()
             print("\nSee ya next time...\n")
-            break
+            time.sleep(3)
+            exit()
         else:
             print("Sorry, this question only accepts 'y' or 'n'")
             print("(lower case or capital)")
+
+    display_coffee_menu()
 
 
 def main():
     """
     """
+    title()
     welcome()
     enter()
 
 
+print("WELCOME TO..\n")
 main()
 # add_customer_name()
 # display_coffee_menu()
