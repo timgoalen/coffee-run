@@ -54,36 +54,46 @@ def display_coffee_menu():
 def choose_coffee():
     """
     """
-    coffee_choice = input("\nChoose an option # (1-6): ")
+    coffee_choice = 0
 
-    if coffee_choice == "1":
-        print(f"\nThanks, you chose {coffee_menu.cell(2, 1).value}\n")
-        order_list.append(coffee_menu.cell(2, 1).value)
-        cost_list.append(coffee_menu.cell(2, 2).value)
-    elif coffee_choice == "2":
-        print(f"\nThanks, you chose {coffee_menu.cell(3, 1).value}\n")
-        order_list.append(coffee_menu.cell(3, 1).value)
-        cost_list.append(coffee_menu.cell(3, 2).value)
-    elif coffee_choice == "3":
-        print(f"\nThanks, you chose {coffee_menu.cell(4, 1).value}\n")
-        order_list.append(coffee_menu.cell(4, 1).value)
-        cost_list.append(coffee_menu.cell(4, 2).value)
-    elif coffee_choice == "4":
-        print(f"\nThanks, you chose {coffee_menu.cell(5, 1).value}\n")
-        order_list.append(coffee_menu.cell(5, 1).value)
-        cost_list.append(coffee_menu.cell(5, 2).value)
-    elif coffee_choice == "5":
-        print(f"\nThanks, you choose {coffee_menu.cell(6, 1).value}\n")
-        order_list.append(coffee_menu.cell(6, 1).value)
-        cost_list.append(coffee_menu.cell(6, 2).value)
-    elif coffee_choice == "6":
-        print(f"\nThanks, you chose {coffee_menu.cell(7, 1).value}\n")
-        order_list.append(coffee_menu.cell(7, 1).value)
-        cost_list.append(coffee_menu.cell(7, 2).value)
+    while True:
+        try:
+            coffee_choice = int(input("\nChoose an option # (1-6): "))
+        except ValueError:
+            print("Sorry, that's not a number")
+            continue
+        if coffee_choice >= 1 and coffee_choice <= 6:
+            if coffee_choice == 1:
+                print(f"\nThanks, you chose {coffee_menu.cell(2, 1).value}\n")
+                order_list.append(coffee_menu.cell(2, 1).value)
+                cost_list.append(coffee_menu.cell(2, 2).value)
+            elif coffee_choice == 2:
+                print(f"\nThanks, you chose {coffee_menu.cell(3, 1).value}\n")
+                order_list.append(coffee_menu.cell(3, 1).value)
+                cost_list.append(coffee_menu.cell(3, 2).value)
+            elif coffee_choice == 3:
+                print(f"\nThanks, you chose {coffee_menu.cell(4, 1).value}\n")
+                order_list.append(coffee_menu.cell(4, 1).value)
+                cost_list.append(coffee_menu.cell(4, 2).value)
+            elif coffee_choice == 4:
+                print(f"\nThanks, you chose {coffee_menu.cell(5, 1).value}\n")
+                order_list.append(coffee_menu.cell(5, 1).value)
+                cost_list.append(coffee_menu.cell(5, 2).value)
+            elif coffee_choice == 5:
+                print(f"\nThanks, you choose {coffee_menu.cell(6, 1).value}\n")
+                order_list.append(coffee_menu.cell(6, 1).value)
+                cost_list.append(coffee_menu.cell(6, 2).value)
+            elif coffee_choice == 6:
+                print(f"\nThanks, you chose {coffee_menu.cell(7, 1).value}\n")
+                order_list.append(coffee_menu.cell(7, 1).value)
+                cost_list.append(coffee_menu.cell(7, 2).value)
+            break
+        else:
+            print('Whoops, the number must be between 1-6')
 
     choose_quantity()
 
-
+    
 def choose_quantity():
     """
     """
@@ -215,10 +225,10 @@ def enter():
         if customer_input == "y":
             display_coffee_menu()
         elif customer_input == "n":
-            print("See ya...")
+            print("\nSee ya next time...\n")
             break
         else:
-            print("Please enter 'y' or 'n'")
+            print("Sorry, this question only accepts 'y' or 'n' (lower case or capital)")
 
 
 def main():
