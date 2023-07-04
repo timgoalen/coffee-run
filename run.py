@@ -60,7 +60,7 @@ def choose_coffee():
         try:
             coffee_choice = int(input("\nChoose an option # (1-6): "))
         except ValueError:
-            print("Sorry, that's not a number")
+            print("Sorry, that's not a digit")
             continue
         if coffee_choice >= 1 and coffee_choice <= 6:
             if coffee_choice == 1:
@@ -97,13 +97,24 @@ def choose_coffee():
 def choose_quantity():
     """
     """
-    quantity = int(input("How many of these would you like?: "))
-    print(f"\nYou'd like {quantity} of these\n")
-    order_list.append(quantity)
-    cost_list.append(quantity)
+    quantity = 0
+
+    while True:
+        try:
+            quantity = int(input("How many of these would you like? (1-10): "))
+        except ValueError:
+            print("Sorry, that's not a digit")
+            continue
+        if quantity >= 1 and quantity <= 10:
+            print(f"\nYou'd like {quantity} of these\n")
+            order_list.append(quantity)
+            cost_list.append(quantity)
+            break
+        else:
+            print('Whoops, the number must be between 1-10')
 
     add_more_coffees()
-    
+
 
 def add_more_coffees():
     """
