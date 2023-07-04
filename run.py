@@ -119,11 +119,24 @@ def choose_quantity():
 def add_more_coffees():
     """
     """
-    more = input("Would you like to add more to the order? [y/n]: ")
-    if more == "y":
-        choose_coffee()
-    else:
-        add_customer_name()
+    while True:
+        customer_input = input("Would you like to add more to the order? [y/n]: ").strip().lower()
+        if customer_input == "y":
+            choose_coffee()
+            break
+        elif customer_input == "n":
+            add_customer_name()
+            break
+        else:
+            print("Sorry, this question only accepts 'y' or 'n'")
+            print("(lower case or capital)")
+
+            # old code
+    # more = input("Would you like to add more to the order? [y/n]: ")
+    # if more == "y":
+    #     choose_coffee()
+    # else:
+    #     add_customer_name()
 
 
 def add_customer_name():
@@ -235,11 +248,13 @@ def enter():
         customer_input = input("...press Y or N, then Enter: ").strip().lower()
         if customer_input == "y":
             display_coffee_menu()
+            break
         elif customer_input == "n":
             print("\nSee ya next time...\n")
             break
         else:
-            print("Sorry, this question only accepts 'y' or 'n' (lower case or capital)")
+            print("Sorry, this question only accepts 'y' or 'n'")
+            print("(lower case or capital)")
 
 
 def main():
