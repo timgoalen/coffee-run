@@ -5,12 +5,12 @@ import pytz
 import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
-from termcolor import colored, cprint
+from termcolor import colored
 from pyfiglet import Figlet
 
-# check deployment video for heroku imput bug
+# GLOBAL VARIABLES
 
-# from CI 'love sanwiches' tutorial www.??
+# from Code Institute's 'love sandwiches' tutorial:
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -20,18 +20,16 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+
 SHEET = GSPREAD_CLIENT.open('coffee-run')
+COFFEE_MENU = SHEET.worksheet('coffee_menu')
+COFFEE_DATA = COFFEE_MENU.get_all_values()
+ORDERS_SPREADSHEET = SHEET.worksheet('orders')
 
-coffee_menu = SHEET.worksheet('coffee_menu')
+ORDER_LIST = []
+COST_LIST = []
 
-coffee_data = coffee_menu.get_all_values()
-
-orders_spreadsheet = SHEET.worksheet('orders')
-
-# Order variables
-
-order_list = []
-cost_list = []
+# FUNCTIONS
 
 
 def clear_screen():
@@ -47,7 +45,7 @@ def display_coffee_menu():
     Displays coffee menu from google sheets
     """
     clear_screen()
-    print(tabulate(coffee_data, headers="firstrow", tablefmt="grid", numalign="right"))
+    print(tabulate(COFFEE_DATA, headers="firstrow", tablefmt="grid", numalign="right"))
     choose_coffee()
 
 
@@ -64,28 +62,28 @@ def choose_coffee():
             continue
         if user_input >= 1 and user_input <= 6:
             if user_input == 1:
-                choice = coffee_menu.cell(2, 1).value
-                cost_list.append(coffee_menu.cell(2, 2).value)
+                choice = COFFEE_MENU.cell(2, 1).value
+                COST_LIST.append(COFFEE_MENU.cell(2, 2).value)
             elif user_input == 2:
-                choice = coffee_menu.cell(3, 1).value
-                cost_list.append(coffee_menu.cell(3, 2).value)
+                choice = COFFEE_MENU.cell(3, 1).value
+                COST_LIST.append(COFFEE_MENU.cell(3, 2).value)
             elif user_input == 3:
-                choice = coffee_menu.cell(4, 1).value
-                cost_list.append(coffee_menu.cell(4, 2).value)
+                choice = COFFEE_MENU.cell(4, 1).value
+                COST_LIST.append(COFFEE_MENU.cell(4, 2).value)
             elif user_input == 4:
-                choice = coffee_menu.cell(5, 1).value
-                cost_list.append(coffee_menu.cell(5, 2).value)
+                choice = COFFEE_MENU.cell(5, 1).value
+                COST_LIST.append(COFFEE_MENU.cell(5, 2).value)
             elif user_input == 5:
-                choice = coffee_menu.cell(6, 1).value
-                cost_list.append(coffee_menu.cell(6, 2).value)
+                choice = COFFEE_MENU.cell(6, 1).value
+                COST_LIST.append(COFFEE_MENU.cell(6, 2).value)
             elif user_input == 6:
-                choice = coffee_menu.cell(7, 1).value
-                cost_list.append(coffee_menu.cell(7, 2).value)
+                choice = COFFEE_MENU.cell(7, 1).value
+                COST_LIST.append(COFFEE_MENU.cell(7, 2).value)
             break
         else:
             print('Whoops, the number must be between 1-6')
 
-    order_list.append(choice)
+    ORDER_LIST.append(choice)
     print("Thanks, you chose "f"{colored(choice,'light_green')}\n")
     choose_quantity()
 
@@ -103,8 +101,8 @@ def choose_quantity():
             continue
         if quantity >= 1 and quantity <= 10:
             print(colored(f"You'd like {quantity} of these\n", "light_green"))
-            order_list.append(quantity)
-            cost_list.append(quantity)
+            ORDER_LIST.append(quantity)
+            COST_LIST.append(quantity)
             break
         else:
             print('Whoops, the number must be between 1-10')
@@ -132,27 +130,27 @@ def add_customer_name():
     """
     """    
     clear_screen()
-    
+
     customer_name = ""
 
     while True:
         customer_name = input("\nWhat name should we write on your order?: \n")
 
         if len(customer_name) < 1 or len(customer_name) > 30:
-            print("Please enter a name btween 1-30 characters long")
+            print("Please enter a name between 1-30 characters long")
             continue
         else:
             capitalized_name = customer_name.capitalize()
-            order_list.insert(0, capitalized_name)
+            ORDER_LIST.insert(0, capitalized_name)
             break
       
-    send_order(order_list)
+    send_order(ORDER_LIST)
 
 
 def send_order(order):
     """
     """
-    orders_spreadsheet.append_row(order)
+    ORDERS_SPREADSHEET.append_row(order)
     clear_screen()
     print("Sending your order to us...")
     # time.sleep(6)
@@ -164,9 +162,9 @@ def display_pending_order():
     """
     clear_screen()
 
-    pending_orders = orders_spreadsheet.get_all_values()
+    pending_orders = ORDERS_SPREADSHEET.get_all_values()
     last_order_row = len(pending_orders)
-    last_order_items = orders_spreadsheet.row_values(last_order_row)    
+    last_order_items = ORDERS_SPREADSHEET.row_values(last_order_row)    
     print(f"Thanks {last_order_items[0]}, your order is:\n")
 
     coffees = last_order_items[1:-1:2]
@@ -198,11 +196,11 @@ def calculate_pickup_time(quantities):
 def calculate_total_cost():
     """
     """
-    unit_price_unformatted = cost_list[::2]
+    unit_price_unformatted = COST_LIST[::2]
     # Remove the '£' from the price, and convert to float
     unit_price_list = [float(price[1:]) for price in unit_price_unformatted]
 
-    quantities = cost_list[1::2]
+    quantities = COST_LIST[1::2]
     # Convert the values in the list into integers
     quantities = [int(quantity) for quantity in quantities]
 
