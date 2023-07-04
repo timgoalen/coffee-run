@@ -58,7 +58,7 @@ def choose_coffee():
 
     while True:
         try:
-            coffee_choice = int(input("\nChoose an option # (1-6): "))
+            coffee_choice = int(input("\nChoose an option # (1-6): \n"))
         except ValueError:
             print("Sorry, that's not a digit")
             continue
@@ -101,7 +101,7 @@ def choose_quantity():
 
     while True:
         try:
-            quantity = int(input("How many of these would you like? (1-10): "))
+            quantity = int(input("How many of these would you like? (1-10): \n"))
         except ValueError:
             print("Sorry, that's not a digit")
             continue
@@ -120,7 +120,7 @@ def add_more_coffees():
     """
     """
     while True:
-        customer_input = input("Would you like to add more to the order? [y/n]: ").strip().lower()
+        customer_input = input("Would you like to add more to the order? [y/n]: \n").strip().lower()
         if customer_input == "y":
             choose_coffee()
             break
@@ -138,7 +138,7 @@ def add_customer_name():
     customer_name = ""
 
     while True:
-        customer_name = input("\nWhat name should we write on your order?: ")
+        customer_name = input("\nWhat name should we write on your order?: \n")
 
         if len(customer_name) < 1 or len(customer_name) > 30:
             print("Please enter a name btween 1-30 characters long")
