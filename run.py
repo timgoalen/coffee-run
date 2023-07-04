@@ -1,14 +1,12 @@
-
+import os
+from datetime import datetime
+import time
+import pytz
 import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
-import os
 from termcolor import colored, cprint
 import pyfiglet
-from datetime import datetime
-import pytz
-import time
-
 
 # check deployment video for heroku imput bug
 
@@ -28,14 +26,11 @@ coffee_menu = SHEET.worksheet('coffee_menu')
 
 coffee_data = coffee_menu.get_all_values()
 
-# coffee_price = coffee_menu.col_values(1)
-
 orders_spreadsheet = SHEET.worksheet('orders')
 
 # Order variables
 
 order_list = []
-# unit_price = []
 cost_list = []
 
 
@@ -146,8 +141,8 @@ def display_pending_order():
     receipt = list(zip(coffees, quantities))
     print(tabulate(receipt, headers=["Coffee", "Quantity"], tablefmt="grid"))
 
-    calculate_pickup_time(quantities)
     calculate_total_cost()
+    calculate_pickup_time(quantities)
     display_current_time()
     
 
@@ -158,13 +153,13 @@ def calculate_pickup_time(quantities):
     # https://www.geeksforgeeks.org/python-converting-all-strings-in-list-to-integers/
     quantities_int = list(map(int, quantities))
 
-    sum = 0
+    x = 0
     for num in quantities_int:
-        sum = sum + num
-    if sum > 1:
-        print(f"\nPlease give us {sum} minutes before picking up you order")
-    elif sum == 1:
-        print(f"\nPlease give us {sum} minute before picking up you order")
+        x = x + num
+    if x > 1:
+        print(f"\nPlease give us {x} minutes before picking it up")
+    elif x == 1:
+        print(f"\nPlease give us {x} minute before picking it up")
 
 
 def calculate_total_cost():
@@ -182,8 +177,8 @@ def calculate_total_cost():
     for price, quantity in zip(unit_price_list, quantities):
         subtotal = price * quantity
         total += subtotal
-    total_rounded = round(total, 2)    
-    
+    total_rounded = round(total, 2)   
+  
     print(f"\nThe total cost will be £{total_rounded}0")
 
 
@@ -199,12 +194,14 @@ def display_current_time():
 def welcome():
     """
     """
-    print("WELCOME TO COFFEE RUN\n\n")
+    print("WELCOME TO COMMAND-LINE COFFEE\n\n")
 
+    time.sleep(1)
     print("Why wait in line!?\n")
-    print("Let Coffee Run take your order,\n")
+    print("Let Command-Line Coffee take your order,\n")
     print("and you just come collect when it's ready.\n\n")
 
+    time.sleep(2)
     print("Do you wanna order some coffee?\n")
     print("[Y] - Hell yes!\n")
     print("[N] - Nah, don't know how I got here!\n")
@@ -213,21 +210,26 @@ def welcome():
 def enter():
     """
     """
-    entrance = input("...press Y or N, then Enter: ")
-    if entrance == "y":
-        display_coffee_menu()
-
-    if entrance == "n":
-        print("NO")
+    while True:
+        customer_input = input("...press Y or N, then Enter: ").strip().lower()
+        if customer_input == "y":
+            display_coffee_menu()
+        elif customer_input == "n":
+            print("See ya...")
+            break
+        else:
+            print("Please enter 'y' or 'n'")
 
 
 def main():
+    """
+    """
     welcome()
     enter()
 
 
-# main()
-display_coffee_menu()
+main()
+# display_coffee_menu()
 # display_pending_order()
 # print(coffee_data)
 # get_current_time()
