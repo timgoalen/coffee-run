@@ -265,8 +265,8 @@ def main():
     enter()
 
 
-# main()
-add_customer_name()
+main()
+# add_customer_name()
 # display_coffee_menu()
 # display_pending_order()
 # print(coffee_data)
