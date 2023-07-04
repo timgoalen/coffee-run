@@ -131,6 +131,8 @@ def add_more_coffees():
 def add_customer_name():
     """
     """    
+    clear_screen()
+    
     customer_name = ""
 
     while True:
