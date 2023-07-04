@@ -131,23 +131,24 @@ def add_more_coffees():
             print("Sorry, this question only accepts 'y' or 'n'")
             print("(lower case or capital)")
 
-            # old code
-    # more = input("Would you like to add more to the order? [y/n]: ")
-    # if more == "y":
-    #     choose_coffee()
-    # else:
-    #     add_customer_name()
-
 
 def add_customer_name():
     """
-    """
-    customer_name = input("\nWhat name should we write on your order?: ")
-    if customer_name:
-        capitalized_name = customer_name.capitalize()
-        order_list.insert(0, capitalized_name)
+    """    
+    customer_name = ""
 
-        send_order(order_list)
+    while True:
+        customer_name = input("\nWhat name should we write on your order?: ")
+
+        if len(customer_name) < 1 or len(customer_name) > 30:
+            print("Please enter a name btween 1-30 characters long")
+            continue
+        else:
+            capitalized_name = customer_name.capitalize()
+            order_list.insert(0, capitalized_name)
+            break
+      
+    send_order(order_list)
 
 
 def send_order(order):
@@ -264,7 +265,8 @@ def main():
     enter()
 
 
-main()
+# main()
+add_customer_name()
 # display_coffee_menu()
 # display_pending_order()
 # print(coffee_data)
