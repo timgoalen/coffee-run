@@ -6,7 +6,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from tabulate import tabulate
 from termcolor import colored, cprint
-import pyfiglet
+from pyfiglet import Figlet
 
 # check deployment video for heroku imput bug
 
@@ -54,43 +54,39 @@ def display_coffee_menu():
 def choose_coffee():
     """
     """
-    coffee_choice = 0
+    user_input = 0
 
     while True:
         try:
-            coffee_choice = int(input("\nChoose an option # (1-6): \n"))
+            user_input = int(input("\nChoose an option # (1-6): \n"))
         except ValueError:
             print("Sorry, that's not a digit")
             continue
-        if coffee_choice >= 1 and coffee_choice <= 6:
-            if coffee_choice == 1:
-                print(f"\nThanks, you chose {coffee_menu.cell(2, 1).value}\n")
-                order_list.append(coffee_menu.cell(2, 1).value)
+        if user_input >= 1 and user_input <= 6:
+            if user_input == 1:
+                choice = coffee_menu.cell(2, 1).value
                 cost_list.append(coffee_menu.cell(2, 2).value)
-            elif coffee_choice == 2:
-                print(f"\nThanks, you chose {coffee_menu.cell(3, 1).value}\n")
-                order_list.append(coffee_menu.cell(3, 1).value)
+            elif user_input == 2:
+                choice = coffee_menu.cell(3, 1).value
                 cost_list.append(coffee_menu.cell(3, 2).value)
-            elif coffee_choice == 3:
-                print(f"\nThanks, you chose {coffee_menu.cell(4, 1).value}\n")
-                order_list.append(coffee_menu.cell(4, 1).value)
+            elif user_input == 3:
+                choice = coffee_menu.cell(4, 1).value
                 cost_list.append(coffee_menu.cell(4, 2).value)
-            elif coffee_choice == 4:
-                print(f"\nThanks, you chose {coffee_menu.cell(5, 1).value}\n")
-                order_list.append(coffee_menu.cell(5, 1).value)
+            elif user_input == 4:
+                choice = coffee_menu.cell(5, 1).value
                 cost_list.append(coffee_menu.cell(5, 2).value)
-            elif coffee_choice == 5:
-                print(f"\nThanks, you choose {coffee_menu.cell(6, 1).value}\n")
-                order_list.append(coffee_menu.cell(6, 1).value)
+            elif user_input == 5:
+                choice = coffee_menu.cell(6, 1).value
                 cost_list.append(coffee_menu.cell(6, 2).value)
-            elif coffee_choice == 6:
-                print(f"\nThanks, you chose {coffee_menu.cell(7, 1).value}\n")
-                order_list.append(coffee_menu.cell(7, 1).value)
+            elif user_input == 6:
+                choice = coffee_menu.cell(7, 1).value
                 cost_list.append(coffee_menu.cell(7, 2).value)
             break
         else:
             print('Whoops, the number must be between 1-6')
 
+    order_list.append(choice)
+    print("Thanks, you chose "f"{colored(choice,'light_green')}\n")
     choose_quantity()
 
     
@@ -106,7 +102,7 @@ def choose_quantity():
             print("Sorry, that's not a digit")
             continue
         if quantity >= 1 and quantity <= 10:
-            print(f"\nYou'd like {quantity} of these\n")
+            print(colored(f"You'd like {quantity} of these\n", "light_green"))
             order_list.append(quantity)
             cost_list.append(quantity)
             break
@@ -229,17 +225,33 @@ def display_current_time():
 def welcome():
     """
     """
-    print("WELCOME TO COMMAND-LINE COFFEE\n\n")
+    print("WELCOME TO..\n")
+    f = Figlet(font="small")
+    title1 = "COMMAND"
+    title2 = "LINE"
+    title3 = "COFFEE.\n\n"
+    # print(colored(f.renderText(title1), "green"))
+    # print(colored(f.renderText(title1), "blue"))
+    # print(colored(f.renderText(title1), "magenta"))
+    # print(colored(f.renderText(title1), "cyan"))
+    # print(colored(f.renderText(title1), "light_red"))
+    # print(colored(f.renderText(title1), "light_green"))
+    # print(colored(f.renderText(title1), "light_magenta"))
+    print(colored(f.renderText(title1), "light_cyan"))
+    print(colored(f.renderText(title2), "light_blue"))
+    print(colored(f.renderText(title3), "light_green"))
+    # print(f.renderText(title2))
+    # print(f.renderText(title3))
 
     time.sleep(1)
     print("Why wait in line!?\n")
-    print("Let Command-Line Coffee take your order,\n")
+    print("Let COMMAND-LINE COFFEE take your order,\n")
     print("and you just come collect when it's ready.\n\n")
 
     time.sleep(2)
     print("Do you wanna order some coffee?\n")
-    print("[Y] - Hell yes!\n")
-    print("[N] - Nah, don't know how I got here!\n")
+    print(colored("[Y] - Hell yes!\n", "light_green"))
+    print(colored("[N] - Nah, don't know how I got here!\n", "light_red"))
 
 
 def enter():
