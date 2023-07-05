@@ -235,13 +235,14 @@ def title():
     """
     """
     f = Figlet(font="small")
-    title1 = "COMMAND"
-    title2 = "LINE"
-    title3 = "COFFEE.\n\n"
+    title1 = "COMMAND_LINE\nCOFFEE."
+    # title1 = "COMMAND"
+    # title2 = "LINE"
+    # title3 = "COFFEE.\n\n"
 
     print(colored(f.renderText(title1), "light_cyan"))
-    print(colored(f.renderText(title2), "light_blue"))
-    print(colored(f.renderText(title3), "light_green"))
+    # print(colored(f.renderText(title2), "light_blue"))
+    # print(colored(f.renderText(title3), "light_green"))
 
 
 def welcome():
@@ -287,9 +288,9 @@ def main():
 
 
 print("WELCOME TO..\n")
-# main()
+main()
 # add_customer_name()
-display_coffee_menu()
+# display_coffee_menu()
 # display_pending_order()
 # print(coffee_data)
 # get_current_time()
