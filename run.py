@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 import time
+import sys
 import pytz
 import gspread
 from google.oauth2.service_account import Credentials
@@ -28,8 +29,29 @@ ORDERS_SPREADSHEET = SHEET.worksheet('orders')
 
 ORDER_LIST = []
 COST_LIST = []
+# for the title effect to not happen after 1st time...[rephrase]
+TITLE_PRINT_DELAY = True
 
-# FUNCTIONS
+# UTILITY FUNCTIONS
+
+
+def clear_screen():
+    """
+    Clears the terminal
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def typing_effect(text):
+    """
+    """
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+
+# PROCEDURAL FUNCTIONS
 
 
 def title():
@@ -43,20 +65,28 @@ def title():
     title3 = "COFFEE."
 
     print(colored(f.renderText(title1), "light_cyan"))
+    if TITLE_PRINT_DELAY:
+        time.sleep(0.6)
     print(colored(f.renderText(title2), "light_blue"))
+    if TITLE_PRINT_DELAY:
+        time.sleep(0.6)
     print(colored(f.renderText(title3), "light_green"))
 
 
 def welcome():
     """
     """
-    time.sleep(2)
-    print("Why wait in line!?\n")
-    print("Let COMMAND-LINE COFFEE take your order,\n")
-    print("and you just come collect when it's ready.\n\n")
+    time.sleep(1.5)
+    # print("Why wait in line!?")
+    typing_effect("Why wait in line!?")
+    time.sleep(0.5)
+    typing_effect("\nLet COMMAND-LINE COFFEE take your order...")
+
+    # print("Let COMMAND-LINE COFFEE take your order,\n")
+    # print("and you just come collect when it's ready.\n\n")
 
     # time.sleep(2)
-    time.sleep(3)
+    time.sleep(2.5)
     # print("Do you wanna order some coffee?\n")
     # print(colored("[Y] - Hell yes!\n", "light_green"))
     # print(colored("[N] - Nah, don't know how I got here!\n", "light_red"))
@@ -65,12 +95,15 @@ def welcome():
 def enter():
     """
     """
+    global TITLE_PRINT_DELAY
+    TITLE_PRINT_DELAY = False
     clear_screen()
     title()
 
-    print("Do you wanna order some coffee?\n")
-    print(colored("[Y] - Hell yes!\n", "light_green"))
-    print(colored("[N] - Nah, don't know how I got here!\n", "light_red"))
+    # print("Do you wanna order some coffee?\n")
+    print("Shall I show you the menu?\n")
+    print(colored("[Y] - Hell yes!", "light_green"))
+    print(colored("[N] - Nah, don't know how I got here\n", "light_red"))
 
     while True:
         customer_input = input("...press Y or N, then Enter: ").strip().lower()
@@ -88,12 +121,6 @@ def enter():
 
     display_coffee_menu()
 
-def clear_screen():
-    """
-    Clears the terminal
-    """
-    os.system('cls' if os.name == 'nt' else 'clear')
-
 
 def display_coffee_menu():
     """
@@ -101,7 +128,8 @@ def display_coffee_menu():
     """
     clear_screen()
     print(tabulate(COFFEE_DATA, headers="firstrow", tablefmt="grid", numalign="right"))
-    print() 
+    print()
+    time.sleep(1)
     choose_coffee()
 
 
