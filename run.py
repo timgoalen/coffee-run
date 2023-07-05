@@ -32,6 +32,62 @@ COST_LIST = []
 # FUNCTIONS
 
 
+def title():
+    """
+    """
+    f = Figlet(font="small")
+    title1 = "COMMAND-LINE"
+    # title1 = "COMMAND"
+    # title2 = "LINE"
+    # title3 = "COFFEE.\n\n"
+    title3 = "COFFEE."
+
+    print(colored(f.renderText(title1), "light_cyan"))
+    # print(colored(f.renderText(title2), "light_blue"))
+    print(colored(f.renderText(title3), "light_green"))
+
+
+def welcome():
+    """
+    """
+    time.sleep(2)
+    print("Why wait in line!?\n")
+    print("Let COMMAND-LINE COFFEE take your order,\n")
+    print("and you just come collect when it's ready.\n\n")
+
+    # time.sleep(2)
+    time.sleep(3)
+    # print("Do you wanna order some coffee?\n")
+    # print(colored("[Y] - Hell yes!\n", "light_green"))
+    # print(colored("[N] - Nah, don't know how I got here!\n", "light_red"))
+
+
+def enter():
+    """
+    """
+    clear_screen()
+    title()
+
+    print("Do you wanna order some coffee?\n")
+    print(colored("[Y] - Hell yes!\n", "light_green"))
+    print(colored("[N] - Nah, don't know how I got here!\n", "light_red"))
+
+    while True:
+        customer_input = input("...press Y or N, then Enter: ").strip().lower()
+        if customer_input == "y":
+            break
+        elif customer_input == "n":
+            clear_screen()
+            title()
+            print("\nSee ya next time...\n")
+            time.sleep(3)
+            exit()
+        else:
+            print("Sorry, this question only accepts 'y' or 'n'")
+            print("(lower case or capital)")
+
+    display_coffee_menu()
+
 def clear_screen():
     """
     Clears the terminal
@@ -229,54 +285,6 @@ def goodbye():
     time.sleep(2)
     print("\nThanks for using")
     title()
-
-
-def title():
-    """
-    """
-    f = Figlet(font="small")
-    title1 = "COMMAND_LINE\nCOFFEE."
-    # title1 = "COMMAND"
-    # title2 = "LINE"
-    # title3 = "COFFEE.\n\n"
-
-    print(colored(f.renderText(title1), "light_cyan"))
-    # print(colored(f.renderText(title2), "light_blue"))
-    # print(colored(f.renderText(title3), "light_green"))
-
-
-def welcome():
-    """
-    """
-    time.sleep(1)
-    print("Why wait in line!?\n")
-    print("Let COMMAND-LINE COFFEE take your order,\n")
-    print("and you just come collect when it's ready.\n\n")
-
-    time.sleep(2)
-    print("Do you wanna order some coffee?\n")
-    print(colored("[Y] - Hell yes!\n", "light_green"))
-    print(colored("[N] - Nah, don't know how I got here!\n", "light_red"))
-
-
-def enter():
-    """
-    """
-    while True:
-        customer_input = input("...press Y or N, then Enter: ").strip().lower()
-        if customer_input == "y":
-            break
-        elif customer_input == "n":
-            clear_screen()
-            title()
-            print("\nSee ya next time...\n")
-            time.sleep(3)
-            exit()
-        else:
-            print("Sorry, this question only accepts 'y' or 'n'")
-            print("(lower case or capital)")
-
-    display_coffee_menu()
 
 
 def main():
