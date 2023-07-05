@@ -36,14 +36,14 @@ def title():
     """
     """
     f = Figlet(font="small")
-    title1 = "COMMAND-LINE"
-    # title1 = "COMMAND"
-    # title2 = "LINE"
+    # title1 = "COMMAND-LINE"
+    title1 = "COMMAND"
+    title2 = "LINE"
     # title3 = "COFFEE.\n\n"
     title3 = "COFFEE."
 
     print(colored(f.renderText(title1), "light_cyan"))
-    # print(colored(f.renderText(title2), "light_blue"))
+    print(colored(f.renderText(title2), "light_blue"))
     print(colored(f.renderText(title3), "light_green"))
 
 
@@ -190,7 +190,7 @@ def add_customer_name():
     customer_name = ""
 
     while True:
-        customer_name = input("\nWhat name should we write on your order?: \n")
+        customer_name = input("What name should we write on your order?: \n")
 
         if len(customer_name) < 1 or len(customer_name) > 30:
             print("Please enter a name between 1-30 characters long")
@@ -290,6 +290,7 @@ def goodbye():
 def main():
     """
     """
+    clear_screen()
     title()
     welcome()
     enter()
