@@ -78,7 +78,7 @@ def welcome():
     """
     time.sleep(1.5)
     # print("Why wait in line!?")
-    typing_effect("Why wait in line!?")
+    typing_effect("Why wait in line?!")
     time.sleep(0.5)
     typing_effect("\nLet COMMAND-LINE COFFEE take your order...")
 
@@ -104,6 +104,7 @@ def enter():
     print("Shall I show you the menu?\n")
     print(colored("[Y] - Hell yes!", "light_green"))
     print(colored("[N] - Nah, don't know how I got here\n", "light_red"))
+    time.sleep(1)
 
     while True:
         customer_input = input("...press Y or N, then Enter: ").strip().lower()
@@ -184,7 +185,7 @@ def choose_quantity():
             print("Sorry, that's not a digit")
             continue
         if quantity >= 1 and quantity <= 10:
-            print(colored(f"You'd like {quantity} of these\n", "light_green"))
+            print(colored(f"You'd like {quantity} of these", "light_green"))
             ORDER_LIST.append(quantity)
             COST_LIST.append(quantity)
             break
@@ -198,7 +199,7 @@ def add_more_coffees():
     """
     """
     while True:
-        customer_input = input("Would you like to add more to the order? [y/n]: \n").strip().lower()
+        customer_input = input("Would you like to add more to the order? [y/n]:\n").strip().lower()
         if customer_input == "y":
             choose_coffee()
             break
@@ -304,7 +305,8 @@ def display_current_time():
     time_now = london_datetime.strftime("%H:%M")
     print(f"\nYour order was placed at {time_now}\n")
 
-    goodbye()
+    # goodbye()
+    # add this to display_pending_order()??
 
 
 def goodbye():
@@ -313,7 +315,7 @@ def goodbye():
     time.sleep(2)
     print("\nThanks for using")
     title()
-
+    # add exit() here???
 
 def main():
     """
@@ -324,7 +326,7 @@ def main():
     enter()
 
 
-print("WELCOME TO..\n")
+# print("WELCOME TO..\n")
 main()
 # add_customer_name()
 # display_coffee_menu()
