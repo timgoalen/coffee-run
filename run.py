@@ -45,6 +45,7 @@ def display_coffee_menu():
     """
     clear_screen()
     print(tabulate(COFFEE_DATA, headers="firstrow", tablefmt="grid", numalign="right"))
+    print() 
     choose_coffee()
 
 
@@ -55,7 +56,7 @@ def choose_coffee():
 
     while True:
         try:
-            user_input = int(input("\nChoose an option # (1-6): \n"))
+            user_input = int(input("Choose an option # (1-6): \n"))
         except ValueError:
             print("Sorry, that's not a digit")
             continue
@@ -83,7 +84,7 @@ def choose_coffee():
             print('Whoops, the number must be between 1-6')
 
     ORDER_LIST.append(choice)
-    print("Thanks, you chose "f"{colored(choice,'light_green')}\n")
+    print("Thanks, you chose "f"{colored(choice,'light_green')}")
     choose_quantity()
 
 
@@ -286,9 +287,9 @@ def main():
 
 
 print("WELCOME TO..\n")
-main()
+# main()
 # add_customer_name()
-# display_coffee_menu()
+display_coffee_menu()
 # display_pending_order()
 # print(coffee_data)
 # get_current_time()
