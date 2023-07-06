@@ -58,10 +58,8 @@ def title():
     """
     """
     f = Figlet(font="small")
-    # title1 = "COMMAND-LINE"
     title1 = "COMMAND"
     title2 = "LINE"
-    # title3 = "COFFEE.\n\n"
     title3 = "COFFEE."
 
     print(colored(f.renderText(title1), "light_cyan"))
@@ -77,19 +75,10 @@ def welcome():
     """
     """
     time.sleep(1.5)
-    # print("Why wait in line!?")
     typing_effect("Why wait in line?!")
     time.sleep(0.5)
     typing_effect("\nLet COMMAND-LINE COFFEE take your order...")
-
-    # print("Let COMMAND-LINE COFFEE take your order,\n")
-    # print("and you just come collect when it's ready.\n\n")
-
-    # time.sleep(2)
-    time.sleep(2.5)
-    # print("Do you wanna order some coffee?\n")
-    # print(colored("[Y] - Hell yes!\n", "light_green"))
-    # print(colored("[N] - Nah, don't know how I got here!\n", "light_red"))
+    time.sleep(2)
 
 
 def enter():
@@ -100,7 +89,6 @@ def enter():
     clear_screen()
     title()
 
-    # print("Do you wanna order some coffee?\n")
     print("Shall I show you the menu?\n")
     print(colored("[Y] - Hell yes!", "light_green"))
     print(colored("[N] - Nah, don't know how I got here\n", "light_red"))
@@ -213,10 +201,8 @@ def add_more_coffees():
 
 def add_customer_name():
     """
-    """  
+    """
     clear_screen()
-
-    customer_name = ""
 
     while True:
         customer_name = input("What name should we write on your order?: \n")
@@ -236,8 +222,6 @@ def send_order(order):
     """
     """
     ORDERS_SPREADSHEET.append_row(order)
-    clear_screen()
-    print("Sending your order to us...")
     display_pending_order()
 
 
@@ -259,6 +243,11 @@ def display_pending_order():
     calculate_total_cost()
     calculate_pickup_time(quantities)
     display_current_time()
+
+    time.sleep(5)
+    # ***do validation for here***
+    input("\n\nPress Enter to EXIT:\n")
+    goodbye()
 
 
 def calculate_pickup_time(quantities):
@@ -305,17 +294,17 @@ def display_current_time():
     time_now = london_datetime.strftime("%H:%M")
     print(f"\nYour order was placed at {time_now}\n")
 
-    # goodbye()
-    # add this to display_pending_order()??
-
 
 def goodbye():
     """
     """
-    time.sleep(2)
-    print("\nThanks for using")
+    global TITLE_PRINT_DELAY
+    TITLE_PRINT_DELAY = True
+    clear_screen()
+    print("Thanks for using\n")
+    time.sleep(1)
     title()
-    # add exit() here???
+
 
 def main():
     """
@@ -326,10 +315,4 @@ def main():
     enter()
 
 
-# print("WELCOME TO..\n")
 main()
-# add_customer_name()
-# display_coffee_menu()
-# display_pending_order()
-# print(coffee_data)
-# get_current_time()
