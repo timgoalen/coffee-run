@@ -143,12 +143,12 @@ def choose_coffee():
         user_input = get_user_integer_input("Choose an option # (1-6): \n")
 
         if 1 <= user_input <= 6:
+            # user input "+ 1" to take account of the spreadsheet title row
             row_index = user_input + 1
             choice = COFFEE_MENU.cell(row_index, 1).value
             cost = COFFEE_MENU.cell(row_index, 2).value
             ORDER_LIST.append(choice)
             COST_LIST.append(cost)
-            # f string moved to front [check other functions for this]
             print(f"Thanks, you chose {colored(choice, 'light_green')}")
             break
         else:
@@ -160,15 +160,10 @@ def choose_coffee():
 def choose_quantity():
     """
     """
-    quantity = 0
-
     while True:
-        try:
-            quantity = int(input("How many of these would you like? (1-10): \n"))
-        except ValueError:
-            print("Sorry, that's not a digit")
-            continue
-        if quantity >= 1 and quantity <= 10:
+        quantity = get_user_integer_input("How many of these would you like? (1-10): \n")
+        
+        if 1 <= quantity <= 10:
             print(colored(f"You'd like {quantity} of these", "light_green"))
             ORDER_LIST.append(quantity)
             COST_LIST.append(quantity)
@@ -312,4 +307,5 @@ def main():
 
 
 # main()
-choose_coffee()
+# choose_coffee()
+choose_quantity()
