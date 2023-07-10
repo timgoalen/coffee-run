@@ -1,3 +1,5 @@
+"""
+"""
 import os
 from datetime import datetime
 import time
@@ -49,6 +51,18 @@ def typing_effect(text):
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(0.05)
+
+
+def get_user_integer_input(prompt):
+    """
+    """
+    while True:
+        try:
+            user_input = int(input(prompt))
+            return user_input
+        except ValueError:
+            print("Sorry, that's not a digit")
+            # need 'continue' here?
 
 
 # PROCEDURAL FUNCTIONS
@@ -108,7 +122,7 @@ def enter():
             print("Sorry, this question only accepts 'y' or 'n'")
             print("(lower case or capital)")
 
-    display_coffee_menu()
+    display_coffee_menu()    
 
 
 def display_coffee_menu():
@@ -125,39 +139,21 @@ def display_coffee_menu():
 def choose_coffee():
     """
     """
-    user_input = 0
-
     while True:
-        try:
-            user_input = int(input("Choose an option # (1-6): \n"))
-        except ValueError:
-            print("Sorry, that's not a digit")
-            continue
-        if user_input >= 1 and user_input <= 6:
-            if user_input == 1:
-                choice = COFFEE_MENU.cell(2, 1).value
-                COST_LIST.append(COFFEE_MENU.cell(2, 2).value)
-            elif user_input == 2:
-                choice = COFFEE_MENU.cell(3, 1).value
-                COST_LIST.append(COFFEE_MENU.cell(3, 2).value)
-            elif user_input == 3:
-                choice = COFFEE_MENU.cell(4, 1).value
-                COST_LIST.append(COFFEE_MENU.cell(4, 2).value)
-            elif user_input == 4:
-                choice = COFFEE_MENU.cell(5, 1).value
-                COST_LIST.append(COFFEE_MENU.cell(5, 2).value)
-            elif user_input == 5:
-                choice = COFFEE_MENU.cell(6, 1).value
-                COST_LIST.append(COFFEE_MENU.cell(6, 2).value)
-            elif user_input == 6:
-                choice = COFFEE_MENU.cell(7, 1).value
-                COST_LIST.append(COFFEE_MENU.cell(7, 2).value)
+        user_input = get_user_integer_input("Choose an option # (1-6): \n")
+
+        if 1 <= user_input <= 6:
+            row_index = user_input + 1
+            choice = COFFEE_MENU.cell(row_index, 1).value
+            cost = COFFEE_MENU.cell(row_index, 2).value
+            ORDER_LIST.append(choice)
+            COST_LIST.append(cost)
+            # f string moved to front [check other functions for this]
+            print(f"Thanks, you chose {colored(choice, 'light_green')}")
             break
         else:
-            print('Whoops, the number must be between 1-6')
+            print("Whoops, the number must be between 1-6")
 
-    ORDER_LIST.append(choice)
-    print("Thanks, you chose "f"{colored(choice,'light_green')}")
     choose_quantity()
 
 
@@ -315,4 +311,5 @@ def main():
     enter()
 
 
-main()
+# main()
+choose_coffee()
