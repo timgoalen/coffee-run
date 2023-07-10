@@ -23,14 +23,14 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
+CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
-SHEET = GSPREAD_CLIENT.open('coffee-run')
-COFFEE_MENU = SHEET.worksheet('coffee_menu')
+SHEET = GSPREAD_CLIENT.open("coffee-run")
+COFFEE_MENU = SHEET.worksheet("coffee_menu")
 COFFEE_DATA = COFFEE_MENU.get_all_values()
-ORDERS_SPREADSHEET = SHEET.worksheet('orders')
+ORDERS_SPREADSHEET = SHEET.worksheet("orders")
 
 # Store user data before sending to the Google Sheet database.
 order_list = []
@@ -48,7 +48,7 @@ def clear_screen():
     """
     Clear the terminal.
     """
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def typing_effect(text):
@@ -197,7 +197,7 @@ def choose_quantity():
             cost_list.append(quantity)
             break
         else:
-            print('Whoops, the number must be between 1-10')
+            print("Whoops, the number must be between 1-10")
 
     add_more_coffees()
 
@@ -345,7 +345,7 @@ def display_current_time():
     """
     Display the time when the order was made.
     """
-    london_timezone = pytz.timezone('Europe/London')
+    london_timezone = pytz.timezone("Europe/London")
     london_datetime = datetime.now(london_timezone)
     time_now = london_datetime.strftime("%H:%M")
     print(f"\nYour order was placed at {time_now}\n")
