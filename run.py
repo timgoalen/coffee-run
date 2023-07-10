@@ -138,7 +138,7 @@ def enter():
             print("Sorry, this question only accepts 'y' or 'n'")
             print("(lower case or capital)")
 
-    display_coffee_menu()    
+    display_coffee_menu()
 
 
 def display_coffee_menu():
@@ -186,7 +186,8 @@ def choose_quantity():
     """
     while True:
         # Display input dialogue.
-        quantity = get_user_integer_input("How many of these would you like? (1-10): \n")
+        message = "How many of these would you like? (1-10): \n"
+        quantity = get_user_integer_input(message)
         # Validate input between 1-10.
         if 1 <= quantity <= 10:
             # Display feedback on user action.
@@ -207,7 +208,8 @@ def add_more_coffees():
     """
     while True:
         # Display input dialogue.
-        customer_input = input("Would you like to add more to the order? [y/n]:\n").strip().lower()
+        message = "Would you like to add more to the order? [y/n]:\n"
+        customer_input = input(message).strip().lower()
         # Validate input as "y" or "n".
         if customer_input == "y":
             choose_coffee()
@@ -280,7 +282,7 @@ def display_pending_order():
     display_current_time()
 
     time.sleep(5)
-    press_enter_to_exit() 
+    press_enter_to_exit()
 
 
 def press_enter_to_exit():
@@ -334,7 +336,7 @@ def calculate_total_cost():
     for price, quantity in zip(unit_price_list, quantities):
         subtotal = price * quantity
         total += subtotal
-    total_rounded = round(total, 2)   
+    total_rounded = round(total, 2)
 
     print(f"\nThe total cost will be £{total_rounded}0")
 
