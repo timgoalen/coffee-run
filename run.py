@@ -29,10 +29,10 @@ COFFEE_MENU = SHEET.worksheet('coffee_menu')
 COFFEE_DATA = COFFEE_MENU.get_all_values()
 ORDERS_SPREADSHEET = SHEET.worksheet('orders')
 
-ORDER_LIST = []
-COST_LIST = []
+order_list = []
+cost_list = []
 # for the title effect to not happen after 1st time...[rephrase]
-TITLE_PRINT_DELAY = True
+title_print_delay = True
 
 # UTILITY FUNCTIONS
 
@@ -77,10 +77,10 @@ def title():
     title3 = "COFFEE."
 
     print(colored(f.renderText(title1), "light_cyan"))
-    if TITLE_PRINT_DELAY:
+    if title_print_delay:
         time.sleep(0.6)
     print(colored(f.renderText(title2), "light_blue"))
-    if TITLE_PRINT_DELAY:
+    if title_print_delay:
         time.sleep(0.6)
     print(colored(f.renderText(title3), "light_green"))
 
@@ -98,8 +98,8 @@ def welcome():
 def enter():
     """
     """
-    global TITLE_PRINT_DELAY
-    TITLE_PRINT_DELAY = False
+    global title_print_delay
+    title_print_delay = False
     clear_screen()
     title()
 
@@ -147,8 +147,8 @@ def choose_coffee():
             row_index = user_input + 1
             choice = COFFEE_MENU.cell(row_index, 1).value
             cost = COFFEE_MENU.cell(row_index, 2).value
-            ORDER_LIST.append(choice)
-            COST_LIST.append(cost)
+            order_list.append(choice)
+            cost_list.append(cost)
             print(f"Thanks, you chose {colored(choice, 'light_green')}")
             break
         else:
@@ -165,8 +165,8 @@ def choose_quantity():
         
         if 1 <= quantity <= 10:
             print(colored(f"You'd like {quantity} of these", "light_green"))
-            ORDER_LIST.append(quantity)
-            COST_LIST.append(quantity)
+            order_list.append(quantity)
+            cost_list.append(quantity)
             break
         else:
             print('Whoops, the number must be between 1-10')
@@ -203,10 +203,10 @@ def add_customer_name():
             continue
         else:
             capitalized_name = customer_name.capitalize()
-            ORDER_LIST.insert(0, capitalized_name)
+            order_list.insert(0, capitalized_name)
             break
 
-    send_order(ORDER_LIST)
+    send_order(order_list)
 
 
 def send_order(order):
@@ -271,11 +271,11 @@ def calculate_pickup_time(quantities):
 def calculate_total_cost():
     """
     """
-    unit_price_unformatted = COST_LIST[::2]
+    unit_price_unformatted = cost_list[::2]
     # Remove the '£' from the price, and convert to float
     unit_price_list = [float(price[1:]) for price in unit_price_unformatted]
 
-    quantities = COST_LIST[1::2]
+    quantities = cost_list[1::2]
     # Convert the values in the list into integers
     quantities = [int(quantity) for quantity in quantities]
 
@@ -300,8 +300,8 @@ def display_current_time():
 def goodbye_message():
     """
     """
-    global TITLE_PRINT_DELAY
-    TITLE_PRINT_DELAY = True
+    global title_print_delay
+    title_print_delay = True
     clear_screen()
     print("Thanks for using\n")
     time.sleep(1)
@@ -317,7 +317,4 @@ def main():
     enter()
 
 
-# main()
-# choose_coffee()
-# choose_quantity()
-press_enter_to_exit()
+main()
