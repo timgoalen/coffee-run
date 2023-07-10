@@ -236,9 +236,20 @@ def display_pending_order():
     display_current_time()
 
     time.sleep(5)
-    # ***do validation for here***
-    input("\n\nPress Enter to EXIT:\n")
-    goodbye()
+    press_enter_to_exit() 
+
+
+def press_enter_to_exit():
+    """
+    """
+    while True:
+        user_input = input("\n\nPress Enter to EXIT:\n")
+        if user_input == "":
+            break
+        else:
+            print("Just the 'Enter' key will do. Please press to exit.")
+
+    goodbye_message()
 
 
 def calculate_pickup_time(quantities):
@@ -286,7 +297,7 @@ def display_current_time():
     print(f"\nYour order was placed at {time_now}\n")
 
 
-def goodbye():
+def goodbye_message():
     """
     """
     global TITLE_PRINT_DELAY
@@ -308,4 +319,5 @@ def main():
 
 # main()
 # choose_coffee()
-choose_quantity()
+# choose_quantity()
+press_enter_to_exit()
