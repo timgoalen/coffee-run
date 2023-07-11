@@ -1,5 +1,8 @@
 """
+COMMAND-LINE COFFEE.
+A terminal-based application to place coffee orders.
 """
+
 import os
 from datetime import datetime
 import time
@@ -15,7 +18,7 @@ from pyfiglet import Figlet
 # GLOBAL VARIABLES
 
 
-# Import Google Sheets API,
+# Link to Google Sheets dataase, using the gspread API -
 # code from Code Institute's 'love sandwiches' tutorial.
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -80,11 +83,13 @@ def title():
     """
     Display the program title.
     """
+    # Use pyfiglet for ASCII art font.
     f = Figlet(font="small")
     title1 = "COMMAND"
     title2 = "LINE"
     title3 = "COFFEE."
 
+    # Use termcolor for text colour.
     print(colored(f.renderText(title1), "light_cyan"))
     if title_print_delay:
         time.sleep(0.6)
@@ -109,7 +114,6 @@ def enter():
     """
     Ask user if they want to see the menu.
     """
-
     # Clear screen and display the title again,
     # use `title_print_delay` to turn the staggered printing off.
     global title_print_delay
