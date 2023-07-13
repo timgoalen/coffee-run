@@ -193,7 +193,95 @@ The Python code was tested with [Code Institute’s Python Linter](https://pep8c
 
 ## Deployment
 
-***include API info
+### Forking the GitHub Repository
+
+By forking the GitHub Repository we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps...
+
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/timgoalen/command-line-coffee)
+2. At the top right of the Repository, just below the GitHub navbar, click on the "Fork" Button.
+3. You should now have a copy of the original repository in your GitHub account.
+
+### Making a Local Clone
+
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/timgoalen/command-line-coffee)
+2. Above the list of files, click "Code".
+3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type `git clone`, and then paste the URL you copied in Step 3.
+
+```
+$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+```
+
+7. Press Enter. Your local clone will be created.
+
+```
+$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+> Cloning into `CI-Clone`...
+> remote: Counting objects: 10, done.
+> remote: Compressing objects: 100% (8/8), done.
+> remove: Total 10 (delta 1), reused 10 (delta 1)
+> Unpacking objects: 100% (10/10), done.
+```
+
+Click [Here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop) to retrieve pictures for some of the buttons and more detailed explanations of the above process.
+
+8. For changes you've made to reflect on the live site*:
+
+    -   Type `git add <files changed> `
+    -   Type `git commit -m <description of change> `
+    -   Type `git push`
+
+    *In Heroku, after pushing to Github - if 'automatic deploys' aren't enabled, manually deploy by clicking 'Deploy Branch' in the Manual Deploy section.
+
+### Create a Spreadsheet using Google Sheets
+
+1. Create a new spreadsheet in [Google Sheets](https://docs.google.com/spreadsheets), name it ‘coffee-run’.
+2. Within the spreadsheet, create 2 sheets called ‘cofee_menu’ and ‘orders’.
+3. Within the ‘coffee_menu’ sheet, create 3 headings called ‘Coffee’, ‘Price’ and ‘#’.
+4. Populate the next 6 rows with your choice of coffees and prices, in the ‘#’ column, enter 1-6 in descending order [refer to the Google Sheets screenshots in the ‘Features/Display Coffee Menu’ section in this README].
+5. Within the ‘orders’ sheet, enter the headings ‘name’, ‘item’, ‘quantity’, ‘item’ and ‘quantity’. [refer to the Google Sheets screenshots in the ‘Features/Customer Name’ section in this README]
+
+### Set up the API with Google Cloud
+
+1. Open [Google Cloud.](https://console.cloud.google.com/)
+2. Click the “Select a project”  button and  select “new project”
+3. Name the project, and click “Select Project”.
+4. From the side menu, select "APIs and services", then select “Library”.
+5. Use the search bar  to search for Google Drive,  and select ‘API’, then ‘Enable’.
+6. Once redirected to the API overview page, click  the “Create credentials”.
+7. A form appears: In the "Which API are you using"  dropdown menu, select "Google Drive API".
+8. Select ‘web server’, then ‘application data’, and ‘no’ for the question ‘app or computer engine’
+9. Click “What credentials do I need?”
+10. Enter a service  account name.
+11. Choose ‘Project  > Editor’ in the ‘role’ selection.
+12. Select ‘JSON’ for the key type.
+13. Click ‘continue’, which will download the credentials file onto your computer.
+14. From the side menu, select "APIs and services", then select “Library”.
+15. Use the search bar  to search for Google Sheets,  and select ‘Google Sheets API’, then ‘Enable’.
+16. Locate the creds.json file that was downloaded to your computer.
+17. Add it to your IDE.
+18. Open creds.json and copy the client_email value.
+19. Open your Google Sheet spreadsheet and click ‘Share’.
+20. Paste the client_email value from the creds.json file; select “Editor”, deselect “Notify People” then click “Share”
+21. Make sure the “creds.json” is added to the .gitignore file within your IDE, so the authentication details aren’t uploaded to GitHub.
+
+### Deploy to Heroku
+
+1. Create a [Heroku](https://www.heroku.com/) account.
+2. In the dashboard, click on ‘Create new app’ from the ‘New’ dropdown menu in the top right.
+3. Name the app and choose a region.
+4. In the ‘Settings’ tab, click on 'Reveal Config Vars’.
+5. In the ‘KEY’ field, write ‘CREDS’.
+6. In the ‘VALUE’ field, paste the contents of your ‘creds.json’ file. [Your creds.json file should be previously listed in your .gitignore file, to prevent authentication details being pushed to Github]
+7. Add an additional Config Var below, write ‘PORT’ for the KEY and ‘8000’ for the VALUE.
+8. In the 'Buildpacks' section click 'Add buildpack'.
+9. First, select ‘Python’, and click 'save changes'.
+10. Then, select ‘node.js’, and click 'save changes'.
+11. In the 'Deploy' tab, select GitHub as the deployment method, and click 'Connect to GitHub'.
+12. In the 'App Connected to GitHub' section, search for the GitHub repository name, select it then click 'connect'.
+13. Finally, either click ‘Enable Automatic Deploys’, or ‘Deploy Branch’ in the ‘Manual deploy’ section.
 
 ## Credits
 
